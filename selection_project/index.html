@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Samuel Jensen" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="D3 practice." />
+    <base target="_self" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>D3 practice</title>
+  </head>
+  <body>
+    <h1>Coloring Elements</h1>
+    <div class="buttons">
+      <button class="select">select</button>
+      <button class="selectAll">selectAll</button>
+      <button class="filter-odd">filter-odd</button>
+      <button class="filter-even">filter-even</button>
+    </div>
+    <div class="svgs">
+      <svg class="circles" height="100" width="400">
+        <circle r="50" cx="50" cy="50"></circle>
+        <circle r="50" cx="150" cy="50"></circle>
+        <circle r="50" cx="250" cy="50"></circle>
+        <circle r="50" cx="350" cy="50"></circle>
+      </svg>
+      <svg class="squares" height="100" width="400">
+        <rect width="90" height="90" y="5" x="5"></rect>
+        <rect width="90" height="90" y="5" x="105"></rect>
+        <rect width="90" height="90" y="5" x="205"></rect>
+        <rect width="90" height="90" y="5" x="305"></rect>
+      </svg>
+      <svg class="rects" height="67.5" width="400">
+        <rect width="400" height="15"></rect>
+        <rect width="400" height="15" y="17.5"></rect>
+        <rect width="400" height="15" y="35"></rect>
+        <rect width="400" height="15" y="52.5"></rect>
+      </svg>
+    </div>
+    <h3 id="select"></h3>
+    <script src="../node_modules/d3/dist/d3.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

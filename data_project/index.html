@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Samuel Jensen" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="D3 practice." />
+    <base target="_self" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Planets</title>
+  </head>
+  <body>
+    <div id="title">
+      <h1>Planets of The Solar System</h1>
+      <p>Some basic details of the Solar System</p>
+    </div>
+    <div id="charts">
+      <div id="sorting">
+        <button id="btn">SORT</button>
+        <p id="btn-msg"></p>
+      </div>
+
+      <hr />
+
+      <div id="diameter">
+        <p id="diaText" class="text"></p>
+        <svg height="350" width="100%"></svg>
+      </div>
+
+      <hr />
+
+      <div id="density">
+        <p id="denText" class="text"></p>
+        <svg height="350" width="100%"></svg>
+      </div>
+    </div>
+    <script src="../node_modules/d3/dist/d3.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

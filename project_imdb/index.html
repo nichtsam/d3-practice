@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Samuel Jensen" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="D3 practice." />
+    <base target="_self" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>D3 practice</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="title">
+        <h1>Mini Project: Modifying Elements</h1>
+        <p>Top 10 Highest-Grossing English Movies of 2019</p>
+      </div>
+      <div id="movies">
+        <div id="movies-selection"></div>
+        <div id="movies-info"></div>
+      </div>
+      <form id="rating-choices">
+        <span class="controls">
+          <label for="cbu">U</label>
+          <input type="checkbox" id="cbu" />
+        </span>
+        <span class="controls">
+          <label for="cb15">15</label>
+          <input type="checkbox" id="cb15" />
+        </span>
+        <span class="controls">
+          <label for="cb12a">12A</label>
+          <input type="checkbox" id="cb12a" />
+        </span>
+        <span class="controls">
+          <label for="cbpg">PG</label>
+          <input type="checkbox" id="cbpg" />
+        </span>
+        <br />
+        <button id="submit">Submit</button>
+      </form>
+      <p id="feedback"></p>
+      <div id="charts">
+        <div id="category"></div>
+        <div id="legend"></div>
+        <div id="gross"></div>
+        <div id="length"></div>
+        <div id="votes"></div>
+        <div></div>
+      </div>
+    </div>
+    <script src="../node_modules/d3/dist/d3.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
