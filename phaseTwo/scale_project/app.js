@@ -76,7 +76,7 @@ Gs.selectAll("rect")
   .join("rect");
 
 Gs.selectAll("text")
-  .data((d) => [d.country])
+  .data((d) => [d])
   .join("text");
 
 const rects = d3
@@ -90,10 +90,8 @@ const rects = d3
 
 const texts = d3
   .selectAll("text")
-  .text((d) => d)
+  .text((d) => `${d.country} , ${d.density}`)
   .attr("y", (d, i) => (10 + rectHeight) * (i + 0.5))
-  .attr("x", (d, i) =>
-    document.querySelector(`g:nth-of-type(${i + 1}) rect`).getAttribute("width")
-  )
+  .attr("x", (d, i) => (ActToPerScale(d.density) * svgWidth) / 120)
   .style("fill", "darkcyan")
   .style("font-weight", "900");
