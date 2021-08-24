@@ -11,29 +11,19 @@
     <title>Event</title>
   </head>
   <body>
-    <div id="title">
-      <h1>Ford - US VEHICLE SALES</h1>
-      <p>The sales figures of 2018 and 2019</p>
-      <p>Includes Information on every quarter and the type of vehicle.</p>
-    </div>
-    <button id="generator">Generate</button>
-    <div id="charts">
-      <div id="year">
-        <p></p>
-        <svg></svg>
+    <div id="container">
+      <div id="title">
+        <h1>Caloric Ratio Split</h1>
+        <p>Carbs, Fat and Protein split of 10 dry fruit</p>
       </div>
-      <div id="quarter">
-        <p></p>
-        <svg></svg>
-      </div>
-
-      <div id="quarter-vehicle">
-        <p></p>
-        <svg></svg>
+      <svg id="charts"></svg>
+      <div id="legend">
+        <div id="carbs">CARBS</div>
+        <div id="fat">FAT</div>
+        <div id="protein">PROTEIN</div>
       </div>
     </div>
-
-    <script src="../node_modules/d3/dist/d3.min.js"></script>
+    <script src="../../node_modules/d3/dist/d3.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="./app.js"></script>
   </body>

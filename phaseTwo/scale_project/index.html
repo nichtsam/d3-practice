@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Samuel Jensen" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="D3 practice." />
+    <base target="_self" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Linear Scale</title>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1>Linear Scale Project</h1>
+        <p>Top 10 highest population density countries.</p>
+      </header>
+      <main>
+        <svg></svg>
+        <p>Below is a translator between percentage to actual number.</p>
+        <div id="translator">
+          <input id="percentage" type="number" min="0" max="100" />
+          <button>Translate</button>
+          <input id="actual" type="number" min="0" max="99999.9" />
+        </div>
+      </main>
+    </div>
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <script src="../../node_modules/d3/dist/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
