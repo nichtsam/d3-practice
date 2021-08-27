@@ -93,15 +93,3 @@ body {
 #charts svg {
   flex-grow: 1;
 }
-
-.jump {
-  transition: all 1s ease;
-  animation: jumpOut 1s forwards;
-}
-
-@keyframes jumpOut {
-  from {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-}

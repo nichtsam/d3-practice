@@ -196,38 +196,52 @@ function updateCharts(renderList) {
 
   svg
     .selectAll("rect")
-    .data((d) => d)
+    .data(
+      (d) => d,
+      (d) => d
+    )
     .join("rect")
     .attr("x", (d, i) => rectWidth * (i * 2 + 1))
     .attr("width", rectWidth)
     .attr("rx", 10)
     .attr("ry", 10)
-    .style("fill", (d, i) => commons[i].color)
-    .classed("jump", true);
+    .style("fill", (d, i) => commons[i].color);
 
   d3.selectAll("#revenue svg rect")
     .attr("height", (d) => (d / revenue[0]) * svgHeight)
+    .transition()
+    .duration(500)
     .attr("y", (d) => -(d / revenue[0]) * svgHeight);
   d3.selectAll("#employees svg rect")
     .attr("height", (d) => (d / employees[0]) * svgHeight)
+    .transition()
+    .duration(500)
     .attr("y", (d) => -(d / employees[0]) * svgHeight);
   d3.selectAll("#market-cap svg rect")
     .attr("height", (d) => (d / marketCap[0]) * svgHeight)
+    .transition()
+    .duration(500)
     .attr("y", (d) => -(d / marketCap[0]) * svgHeight);
   salesGrowthMax = Math.max(...salesGrowth);
   d3.selectAll("#sales-growth svg rect")
     .attr("height", (d) => (d / salesGrowthMax) * svgHeight)
+    .transition()
+    .duration(500)
     .attr("y", (d) => -(d / salesGrowthMax) * svgHeight);
 
   svg
     .selectAll("text")
-    .data((d) => d)
+    .data(
+      (d) => d,
+      (d) => d
+    )
     .join("text")
     .text((d, i) => `${commons[i].name},${d}`)
-    .attr("x", (d, i) => rectWidth * (i * 2 + 1) - 15)
-    .attr("y", -svgHeight / 2)
     .style("font-size", 12)
     .style("text-anchor", "middle")
     .style("writing-mode", "tb")
-    .classed("jump", true);
+    .attr("x", (d, i) => rectWidth * (i * 2 + 1) - 15)
+    .transition()
+    .duration(500)
+    .attr("y", -svgHeight / 2);
 }
