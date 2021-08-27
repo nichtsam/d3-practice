@@ -202,10 +202,12 @@ function updateCharts(renderList) {
     )
     .join("rect")
     .attr("x", (d, i) => rectWidth * (i * 2 + 1))
-    .attr("width", rectWidth)
     .attr("rx", 10)
     .attr("ry", 10)
-    .style("fill", (d, i) => commons[i].color);
+    .style("fill", (d, i) => commons[i].color)
+    .transition()
+    .duration(500)
+    .attr("width", rectWidth);
 
   d3.selectAll("#revenue svg rect")
     .attr("height", (d) => (d / revenue[0]) * svgHeight)

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Samuel Jensen" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="D3 practice." />
+    <base target="_self" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Axes Project</title>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Goodle Trends Data for the D3.js Library</h1>
+      <hr />
+      <p>Weekly data from the period of Jan to Mar 2020.</p>
+      <hr />
+      <svg></svg>
+      <hr />
+      <div id="description">
+        <p>Average: <span></span></p>
+        <div id="legend">
+          <div id="ba">
+            <span id="ba-color-tag"></span>
+            Below Average
+          </div>
+          <div id="aa">
+            <span id="aa-color-tag"></span>
+            Above Average
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../node_modules/d3/dist/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
