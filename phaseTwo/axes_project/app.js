@@ -32,10 +32,7 @@ axisLeftG.style("transform", `translateX(${BUFFER}px)`);
 
 const DATE_TO_X_SCALE = d3
   .scaleTime()
-  .domain([
-    new Date(START_DATE - new Date(1970, 0, 8, 8)),
-    new Date(+END_DATE + +new Date(1970, 0, 8, 8)),
-  ])
+  .domain([new Date(START_DATE - 604800000), new Date(+END_DATE + 604800000)])
   .range([BUFFER, SVG_WIDTH - BUFFER]);
 
 const axisBottom = d3
@@ -64,9 +61,7 @@ SVG.append("g")
   .attr(
     "x",
     (d, i) =>
-      DATE_TO_X_SCALE(
-        new Date(+START_DATE + +new Date(1970, 0, 8, 8) * (i - 0.5))
-      ) + 2.5
+      DATE_TO_X_SCALE(new Date(+START_DATE + 604800000 * (i - 0.5))) + 2.5
   )
   .attr("height", (d) => SVG_HEIGHT - DATA_TO_Y_SCALE(d) - BUFFER)
   .attr("width", barWidth)
@@ -78,9 +73,7 @@ SVG.append("g")
   .data(DATA)
   .join("text")
   .attr("y", (d) => DATA_TO_Y_SCALE(d) + 25)
-  .attr("x", (d, i) =>
-    DATE_TO_X_SCALE(new Date(+START_DATE + +new Date(1970, 0, 8, 8) * i))
-  )
+  .attr("x", (d, i) => DATE_TO_X_SCALE(new Date(+START_DATE + 604800000 * i)))
   .style("text-anchor", "middle")
   .text((d) => d)
   .style("font-size", 12)
