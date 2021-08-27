@@ -159,17 +159,17 @@ selectCheckbox.on("input", (e, d) => {
 });
 
 function updateCharts(renderList) {
-  if (renderList === 0) {
+  if (renderList.length === 0) {
     d3.select("#revenue p").text("");
     d3.select("#employees p").text("");
     d3.select("#market-cap p").text("");
     d3.select("#sales-growth p").text("");
-    return;
+  } else {
+    d3.select("#revenue p").text("Revenue");
+    d3.select("#employees p").text("Employees");
+    d3.select("#market-cap p").text("Market Cap");
+    d3.select("#sales-growth p").text("Sales Growth");
   }
-  d3.select("#revenue p").text("Revenue");
-  d3.select("#employees p").text("Employees");
-  d3.select("#market-cap p").text("Market Cap");
-  d3.select("#sales-growth p").text("Sales Growth");
 
   const commons = [];
   const revenue = [];
@@ -205,9 +205,9 @@ function updateCharts(renderList) {
     .attr("rx", 10)
     .attr("ry", 10)
     .style("fill", (d, i) => commons[i].color)
+    .attr("width", rectWidth)
     .transition()
-    .duration(500)
-    .attr("width", rectWidth);
+    .duration(500);
 
   d3.selectAll("#revenue svg rect")
     .attr("height", (d) => (d / revenue[0]) * svgHeight)
