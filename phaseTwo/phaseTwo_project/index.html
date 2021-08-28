@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Samuel Jensen" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="D3 practice." />
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Sales Analysis</title>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1>Sales Analysis</h1>
+        <p>FY2018-2019 (in US Dollar)</p>
+      </header>
+      <main>
+        <div id="legend">
+          <span id="s_t">Sports & Travel</span>
+          <span id="h_l">Home & Lifestyle</span>
+          <span id="e_g">Electronics & Gadgets</span>
+          <span id="h_b">Health & Beauty</span>
+        </div>
+        <div id="charts">
+          <div class="chart" id="LH">
+            <h2>Lowest and Highest Sales Categories</h2>
+            <svg></svg>
+          </div>
+          <div class="chart" id="AA">
+            <h2>Sales Categories Above the Region Average</h2>
+            <svg></svg>
+          </div>
+          <div class="chart" id="LtH">
+            <h2>Low to High Sales Categories</h2>
+            <svg></svg>
+          </div>
+          <div class="chart" id="RS">
+            <h2>Region Total Sales</h2>
+            <svg></svg>
+          </div>
+          <div class="chart" id="CP">
+            <h2>Common Sales Performance</h2>
+            <svg></svg>
+          </div>
+        </div>
+      </main>
+      <footer>Footer</footer>
+    </div>
+    <script src="../../node_modules/d3/dist/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
