@@ -100,8 +100,14 @@ LH_BAR_Gs.selectAll("rect")
   .attr("rx", 4)
   .attr("x", BUFFER + 1)
   .attr("height", yScale.bandwidth() / 2)
-  .attr("width", (d) => widthScale(Object.values(d)))
   .style("fill", (d) => COLOR_SCALE(...Object.keys(d)));
+
+LH_SVG.select(".bars")
+  .selectAll("rect")
+  .transition()
+  .delay((d, i) => 125 * i)
+  .duration(250)
+  .attr("width", (d) => widthScale(Object.values(d)));
 
 LH_BAR_Gs.each(function () {
   const id = this.id;
