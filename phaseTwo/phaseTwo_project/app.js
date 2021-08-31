@@ -190,7 +190,7 @@ AA_SVG.select(".bars")
   .on("end", () => {
     n--;
     if (!n)
-      document.getElementById("LtH").scrollIntoView({
+      document.getElementById("footer").scrollIntoView({
         behavior: "smooth",
         block: "end",
       });
