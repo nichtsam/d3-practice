@@ -36,7 +36,7 @@ const SVG_H_R2 = document.querySelector("#LtH svg").clientHeight;
 const SVG_W_R2 = document.querySelector("#LtH svg").clientWidth;
 
 const R_ABBR = SALES_DATA.map((d) => d.region[0]);
-const BUFFER = 25;
+const BUFFER = 35;
 const DATA_LENGTH = SALES_DATA.length;
 
 const LH_SVG = d3.select("#LH svg");
@@ -156,13 +156,13 @@ xAxis.scale(widthScale);
 
 xAxis(
   AA_SVG.append("g")
-    .attr("id", "AA_ticks")
+    .attr("class", "AA_ticks")
     .style("transform", `translate(${BUFFER}px,${SVG_H_R1 - BUFFER}px)`)
 );
 
 yAxis(
   AA_SVG.append("g")
-    .attr("id", "AA_ticks")
+    .attr("class", "AA_ticks")
     .style("transform", `translateX(${BUFFER}px)`)
 );
 
@@ -202,3 +202,68 @@ AA_BAR_Gs.each(function () {
     .selectAll("rect")
     .attr("y", (d, i) => yScale(id) + (yScale.bandwidth() / 3) * i);
 });
+
+//Low to High
+const LtH = SALES_DATA.reduce((acc, d) => {
+  return acc.concat(Object.entries(d).filter((i) => typeof i[1] !== "string"));
+}, []);
+
+yScale = d3
+  .scaleLinear()
+  .domain([d3.max(LtH, (d) => d[1]), 0])
+  .range([BUFFER, SVG_H_R2 - BUFFER]);
+
+yAxis.scale(yScale).ticks(3, "~s");
+yAxis(
+  LtH_SVG.append("g")
+    .attr("class", "LtH_ticks")
+    .style("transform", `translateX(${BUFFER}px)`)
+);
+
+xScale = d3
+  .scaleLinear()
+  .domain([0, LtH.length])
+  .range([BUFFER, SVG_W_R2 - BUFFER * 2]);
+xAxis.scale(xScale).ticks(0);
+xAxis(
+  LtH_SVG.append("g")
+    .attr("class", "LtH_ticks")
+    .style("transform", `translateY(${SVG_H_R2 - BUFFER}px)`)
+);
+
+const LtH_SVG_G = LtH_SVG.append("g").attr("class", "circles");
+
+const circles = LtH_SVG_G.selectAll("circle")
+  .data(LtH)
+  .join("circle")
+  .attr("id", (d, i) => R_ABBR[Math.floor(i / 4)])
+  .sort((a, b) => a[1] - b[1])
+  .attr("cx", (d, i) => xScale(i + 0.5))
+  .attr("cy", (d) => yScale(d[1]))
+  .style("fill", (d) => COLOR_SCALE(d[0]))
+  .transition()
+  .delay((d, i) => 1700 + 100 * i)
+  .duration(100)
+  .attr("r", 5)
+  .on("start", function () {
+    const id = this.id;
+    const x = this.cx.animVal.value;
+    const y = this.cy.animVal.value;
+    LtH_SVG_G.append("text")
+      .text(id)
+      .attr("x", x)
+      .attr("y", SVG_H_R2 - BUFFER + 16)
+      .style("text-anchor", "middle")
+      .style("font-size", 12);
+    LtH_SVG_G.append("line")
+      .attr("stroke", "gray")
+      .attr("x1", x)
+      .attr("x2", x)
+      .attr("y1", SVG_H_R2 - BUFFER)
+      .attr("y2", SVG_H_R2 - BUFFER)
+      .transition()
+      .duration(150)
+      .attr("y2", y + 10);
+  });
+
+// Region Total Sales
