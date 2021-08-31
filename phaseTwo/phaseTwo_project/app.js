@@ -137,7 +137,7 @@ const AA = SALES_DATA.map((d) => {
   const temp = Object.entries(d);
   const aver = d3.mean(d3.merge(temp));
 
-  return temp.filter((i) => i[1] > aver);
+  return temp.filter((i) => i[1] >= aver);
 
   // const temp = [];
   // for (let key in d) {
@@ -177,7 +177,7 @@ AA_BAR_Gs.selectAll("rect")
   .data((d) => d)
   .join("rect")
   .attr("x", BUFFER + 1)
-  .attr("height", yScale.bandwidth() / 2)
+  .attr("height", yScale.bandwidth() / 3)
   .attr("fill", (d) => COLOR_SCALE(d[0]))
   .attr("rx", 4);
 let n = 0;
@@ -200,5 +200,5 @@ AA_BAR_Gs.each(function () {
   const id = this.id;
   d3.select(this)
     .selectAll("rect")
-    .attr("y", (d, i) => yScale(id) + (yScale.bandwidth() / 2) * i);
+    .attr("y", (d, i) => yScale(id) + (yScale.bandwidth() / 3) * i);
 });
