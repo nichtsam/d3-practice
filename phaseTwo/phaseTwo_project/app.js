@@ -50,37 +50,54 @@ d3.selectAll("#legend span").style("background-color", function () {
   return COLOR_SCALE(this.id);
 });
 
+let tr = d3.transition().duration(250);
+let widthScale, heightScale, xScale, yScale, xAxis, yAxis;
+
 // Lowest and Highest
 const LH = SALES_DATA.map((data) => {
-  let temp = [];
-  for (let key in data) {
-    if (typeof data[key] !== "string") temp.push({ [key]: data[key] });
-  }
-  return [
-    d3.least(temp, (a, b) => Object.values(a) - Object.values(b)),
-    d3.least(temp, (a, b) => Object.values(b) - Object.values(a)),
-  ];
+  const temp = Object.entries(data).reduce(
+    (acc, i) => {
+      if (i[1] > acc.max[1]) {
+        acc.max = i;
+      } else if (i[1] < acc.min[1]) {
+        acc.min = i;
+      }
+      return acc;
+    },
+    { max: [, -Infinity], min: [, Infinity] }
+  );
+
+  return [temp.max, temp.min];
+
+  // let temp = [];
+  // for (let key in data) {
+  //   if (typeof data[key] !== "string") temp.push({ [key]: data[key] });
+  // }
+  // return [
+  //   d3.least(temp, (a, b) => Object.values(a) - Object.values(b)),
+  //   d3.least(temp, (a, b) => Object.values(b) - Object.values(a)),
+  // ];
 });
 
-let widthScale = d3
+widthScale = d3
   .scaleLinear()
-  .domain([0, d3.max(d3.merge(LH), (i) => Object.values(i))])
+  .domain([0, d3.max(d3.merge(LH))[1]])
   .range([0, SVG_W_R1 - BUFFER * 2]);
 
-let yScale = d3
+yScale = d3
   .scaleBand()
   .domain(R_ABBR)
   .range([BUFFER, SVG_H_R1 - BUFFER])
   .paddingInner(0.03);
 
-let xAxis = d3.axisBottom(widthScale).ticks(3).tickSizeInner(0).tickPadding(10);
+xAxis = d3.axisBottom(widthScale).ticks(3).tickSizeInner(0).tickPadding(10);
 xAxis(
   LH_SVG.append("g")
     .attr("class", "LH_ticks")
     .style("transform", `translate(${BUFFER}px,${SVG_H_R1 - BUFFER}px)`)
 );
 
-let yAxis = d3.axisLeft(yScale).tickSizeInner(0).tickPadding(10);
+yAxis = d3.axisLeft(yScale).tickSizeInner(0).tickPadding(10);
 yAxis(
   LH_SVG.append("g")
     .attr("class", "LH_ticks")
@@ -100,14 +117,13 @@ LH_BAR_Gs.selectAll("rect")
   .attr("rx", 4)
   .attr("x", BUFFER + 1)
   .attr("height", yScale.bandwidth() / 2)
-  .style("fill", (d) => COLOR_SCALE(...Object.keys(d)));
+  .style("fill", (d) => COLOR_SCALE(d[0]));
 
 LH_SVG.select(".bars")
   .selectAll("rect")
-  .transition()
+  .transition(tr)
   .delay((d, i) => 125 * i)
-  .duration(250)
-  .attr("width", (d) => widthScale(Object.values(d)));
+  .attr("width", (d) => widthScale(d[1]));
 
 LH_BAR_Gs.each(function () {
   const id = this.id;
@@ -117,3 +133,63 @@ LH_BAR_Gs.each(function () {
 });
 
 //Above the Average
+const AA = SALES_DATA.map((d) => {
+  const temp = Object.entries(d);
+  const aver = d3.mean(d3.merge(temp));
+
+  return temp.filter((i) => i[1] > aver);
+
+  // const temp = [];
+  // for (let key in d) {
+  //   if (typeof d[key] !== "string") temp.push({ [key]: d[key] });
+  // }
+  // const aver = d3.mean(temp, (n) => Object.values(n));
+  // return temp.filter((n) => Object.values(n) > aver);
+});
+
+widthScale = d3
+  .scaleLinear()
+  .domain([0, d3.max(d3.merge(AA), (i) => i[1])])
+  .range([0, SVG_W_R1 - BUFFER * 2]);
+
+xAxis.scale(widthScale);
+
+xAxis(
+  AA_SVG.append("g")
+    .attr("id", "AA_ticks")
+    .style("transform", `translate(${BUFFER}px,${SVG_H_R1 - BUFFER}px)`)
+);
+
+yAxis(
+  AA_SVG.append("g")
+    .attr("id", "AA_ticks")
+    .style("transform", `translateX(${BUFFER}px)`)
+);
+
+const AA_BAR_Gs = AA_SVG.append("g")
+  .attr("class", "bars")
+  .selectAll("g")
+  .data(AA)
+  .join("g")
+  .attr("id", (d, i) => R_ABBR[i]);
+
+AA_BAR_Gs.selectAll("rect")
+  .data((d) => d)
+  .join("rect")
+  .attr("x", BUFFER + 1)
+  .attr("height", yScale.bandwidth() / 2)
+  .attr("fill", (d) => COLOR_SCALE(d[0]))
+  .attr("rx", 4);
+
+AA_SVG.select(".bars")
+  .selectAll("rect")
+  .transition(tr)
+  .delay((d, i) => 125 * (i + 1))
+  .attr("width", (d) => widthScale(d[1]));
+
+AA_BAR_Gs.each(function () {
+  const id = this.id;
+  d3.select(this)
+    .selectAll("rect")
+    .attr("y", (d, i) => yScale(id) + (yScale.bandwidth() / 2) * i);
+});
