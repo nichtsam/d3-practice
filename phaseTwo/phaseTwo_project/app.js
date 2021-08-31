@@ -180,12 +180,21 @@ AA_BAR_Gs.selectAll("rect")
   .attr("height", yScale.bandwidth() / 2)
   .attr("fill", (d) => COLOR_SCALE(d[0]))
   .attr("rx", 4);
-
+let n = 0;
 AA_SVG.select(".bars")
   .selectAll("rect")
   .transition(tr)
   .delay((d, i) => 125 * (i + 1))
-  .attr("width", (d) => widthScale(d[1]));
+  .attr("width", (d) => widthScale(d[1]))
+  .on("start", () => n++)
+  .on("end", () => {
+    n--;
+    if (!n)
+      document.getElementById("LtH").scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+  });
 
 AA_BAR_Gs.each(function () {
   const id = this.id;
